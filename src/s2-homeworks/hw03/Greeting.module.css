@@ -8,12 +8,15 @@
 }
 
 .input {
+    border: 1px solid rgb(64, 153, 116);
+    
 }
 
 .input:focus {
 }
 
 .errorInput {
+    border: 1px solid red;
 }
 
 .button {
