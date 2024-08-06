@@ -7,10 +7,10 @@ type GreetingContainerPropsType = {
     addUserCallback: (name:string) => void // need to fix any
 }
 
-export const pureAddUser = (name: string, setError: any, setName: any, addUserCallback: any) => {
+export const pureAddUser = (name: string, setError: any, setName: any, addUserCallback: (name:string) => void) => {
     // если имя пустое - показать ошибку, иначе - добавить юзера и очистить инпут
-    if(name.trim() == ''){
-        setError('error')
+    if(name.trim() === ''){
+        setError('Ошибка! Введите имя!')
     }else {
         addUserCallback(name.trim())
         setName('')
@@ -18,15 +18,16 @@ export const pureAddUser = (name: string, setError: any, setName: any, addUserCa
 
 }
 
-export const pureOnBlur = (name: string, setError: any) => {
-    if(name.trim() == '' ){
-        setError('errrrror')
+export const pureOnBlur = (name: string, setError: (error: string) => void) => {
+    if(name.trim() === '' ){
+        setError('Ошибка! Введите имя!')
     } // если имя пустое - показать ошибку
 }
 
 export const pureOnEnter = (e: KeyboardEvent<HTMLInputElement>, addUser: any) => { // если нажата кнопка Enter - добавить
     if(e.key === 'Enter' ){
         addUser()
+        
     }
 }
 
@@ -39,8 +40,8 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = ({
     addUserCallback,
 }) => {
     // деструктуризация пропсов
-    const [name, setName] = useState<any>('') // need to fix any
-    const [error, setError] = useState<any>('') // need to fix any
+    const [name, setName] = useState<string>('') // need to fix any
+    const [error, setError] = useState<string | null>('') // need to fix any
 
     const setNameCallback = (e: ChangeEvent<HTMLInputElement>) => { // need to fix any
         setName(e.currentTarget.value) // need to fix
@@ -60,7 +61,7 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = ({
     }
 
     const totalUsers =  users.length// need to fix
-    const lastUserName =  name // need to fix
+    const lastUserName =  users.at(-1)?.name // need to fix
 
     return (
         <Greeting
