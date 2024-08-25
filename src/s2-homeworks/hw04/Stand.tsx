@@ -58,6 +58,7 @@ const Stand = () => {
                     <SuperButton
                         id={'hw4-super-button-disabled'}
                         xType={'red'}
+                        className={s.parentClass}
                         disabled
                     >
                         disabled
