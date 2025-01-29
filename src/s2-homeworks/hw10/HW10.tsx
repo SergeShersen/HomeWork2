@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppStoreType} from './bll/store'
-import {loadingAC} from './bll/loadingReducer'
+import {initStateType, loadingAC} from './bll/loadingReducer'
 import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
 import s2 from '../../s1-main/App.module.css'
 import {Loader} from './Loader'
@@ -15,14 +15,19 @@ import {Loader} from './Loader'
 
 const HW10 = () => {
     // useSelector, useDispatch // пишет студент
-    const isLoading = false
+    const isLoading = useSelector<AppStoreType, any>(store => store.loading.isLoading)
+   
+    const dispatch = useDispatch()
 
     const setLoading = () => { // пишет студент // показать крутилку на 1,5 секунд
         // dispatch
-
-        // setTimeout
+        dispatch(loadingAC(true))
+        
+        setTimeout(() => {
+            dispatch(loadingAC(false))
+        },1500)
     }
-
+    console.log(isLoading)
     return (
         <div id={'hw10'}>
             <div className={s2.hwTitle}>Homework #10</div>
